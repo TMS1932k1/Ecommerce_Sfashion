@@ -6,18 +6,18 @@ import {MyDimesions} from '../../constants';
 interface Props {
   children: ReactNode;
   style?: StyleProp<ViewStyle>;
+  value?: boolean;
   onChanged?: (value: boolean) => void;
 }
 
-export default function CheckboxText({children, style, onChanged}: Props) {
-  const [value, setValue] = useState(false);
-
-  /// Set current state with [value: boolean]
-  /// And callback with [value: boolean]
+export default function CheckboxText({
+  children,
+  style,
+  onChanged,
+  value,
+}: Props) {
+  /// Callback with [value: boolean]
   function changeValue(value: boolean) {
-    setValue(value);
-
-    // Callback
     onChanged && onChanged(value);
   }
 
@@ -32,6 +32,8 @@ export default function CheckboxText({children, style, onChanged}: Props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    width: '100%',
+    maxWidth: 380,
   },
   text: {
     marginLeft: MyDimesions.kPaddingSmall,

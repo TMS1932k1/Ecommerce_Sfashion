@@ -17,6 +17,7 @@ interface Props {
   placeholder?: string;
   labelStyle?: StyleProp<TextStyle>;
   onChangeText?: (text: string) => void;
+  value?: string;
   isValid?: boolean;
   keyBoardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
@@ -26,6 +27,7 @@ export default function Input({
   style,
   label,
   labelStyle,
+  value,
   placeholder,
   onChangeText,
   isValid = true,
@@ -41,6 +43,7 @@ export default function Input({
       )}
       <View style={styles.borderContainer}>
         <TextInput
+          value={value}
           style={styles.input}
           keyboardType={keyBoardType}
           secureTextEntry={secureTextEntry}
