@@ -1,5 +1,5 @@
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {MyColors, MyDimesions, MyStylers} from '../constants';
+import {View, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import {MyDimesions, MyStylers} from '../constants';
 import {
   AnotherAuth,
   CheckboxText,
@@ -122,104 +122,105 @@ export default function AuthScreen() {
     setAgreeMent(value);
   }
 
-  return (
-    <ScrollView>
-      <View style={[MyStylers.rootContainer, styles.container]}>
-        <Header
-          titleText={mode === ModeAuth.SignUp ? 'Sign Up' : 'Welcome!'}
-          subtitle={
-            mode === ModeAuth.SignUp
-              ? 'Create an new account'
-              : 'Please login or sign up to continue our app'
-          }
+  const content = (
+    <View style={[MyStylers.rootContainer, styles.container]}>
+      <Header
+        style={styles.header}
+        titleText={mode === ModeAuth.SignUp ? 'Sign Up' : 'Welcome!'}
+        subtitle={
+          mode === ModeAuth.SignUp
+            ? 'Create an new account'
+            : 'Please login or sign up to continue our app'
+        }
+      />
+      {mode === ModeAuth.SignUp && (
+        <Input
+          style={styles.input}
+          value={userName.value}
+          label="User Name"
+          placeholder="JohnHam"
+          isValid={userName.isValid}
+          onChangeText={onChangeUserName}
         />
-        <View style={styles.inputsContainer}>
-          {mode === ModeAuth.SignUp && (
-            <Input
-              style={styles.input}
-              value={userName.value}
-              label="User Name"
-              placeholder="JohnHam"
-              isValid={userName.isValid}
-              onChangeText={onChangeUserName}
-            />
-          )}
-          <Input
-            label="Email"
-            style={styles.input}
-            value={email.value}
-            keyBoardType="email-address"
-            placeholder="johnham123@gmail.com"
-            isValid={email.isValid}
-            onChangeText={onChangeEmail}
-          />
-          <Input
-            style={styles.input}
-            label="Password"
-            value={password.value}
-            secureTextEntry={true}
-            placeholder="Eight characters, at least a letter and a number"
-            isValid={password.isValid}
-            onChangeText={onChangePassword}
-          />
-          {mode === ModeAuth.SignUp && (
-            <Input
-              style={styles.input}
-              label="Confirm Password"
-              value={confirmPassword.value}
-              secureTextEntry={true}
-              placeholder="Confirm your password"
-              isValid={confirmPassword.isValid}
-              onChangeText={onChangeConfirmPassword}
-            />
-          )}
-          {mode === ModeAuth.SignUp && (
-            <CheckboxText
-              style={styles.checkbox}
-              value={agreement}
-              onChanged={onChangeAgreement}>
-              By creating an account you have to agree with out them &
-              condication
-            </CheckboxText>
-          )}
-          {!isLoading && (
-            <>
-              <ElevatedButton
-                style={styles.login}
-                onPress={valid ? onSubmit : undefined}>
-                {mode === ModeAuth.Login ? 'Login' : 'Sign up'}
-              </ElevatedButton>
-              <TextButton
-                style={styles.changeMode}
-                onPress={() =>
-                  changeMode(
-                    mode === ModeAuth.Login ? ModeAuth.SignUp : ModeAuth.Login,
-                  )
-                }>
-                {mode === ModeAuth.Login
-                  ? "I don't have an account"
-                  : 'I had an account'}
-              </TextButton>
-              {mode === ModeAuth.Login && <AnotherAuth />}
-            </>
-          )}
-          {isLoading && <Indicator style={styles.indicator} size={'large'} />}
-        </View>
-      </View>
-    </ScrollView>
+      )}
+      <Input
+        label="Email"
+        style={styles.input}
+        value={email.value}
+        keyBoardType="email-address"
+        placeholder="johnham123@gmail.com"
+        isValid={email.isValid}
+        onChangeText={onChangeEmail}
+      />
+      <Input
+        style={styles.input}
+        label="Password"
+        value={password.value}
+        secureTextEntry={true}
+        placeholder="Eight characters, at least a letter and a number"
+        isValid={password.isValid}
+        onChangeText={onChangePassword}
+      />
+      {mode === ModeAuth.SignUp && (
+        <Input
+          style={styles.input}
+          label="Confirm Password"
+          value={confirmPassword.value}
+          secureTextEntry={true}
+          placeholder="Confirm your password"
+          isValid={confirmPassword.isValid}
+          onChangeText={onChangeConfirmPassword}
+        />
+      )}
+      {mode === ModeAuth.SignUp && (
+        <CheckboxText
+          style={styles.checkbox}
+          value={agreement}
+          onChanged={onChangeAgreement}>
+          By creating an account you have to agree with out them & condication
+        </CheckboxText>
+      )}
+      {!isLoading && (
+        <>
+          <ElevatedButton
+            style={styles.login}
+            onPress={valid ? onSubmit : undefined}>
+            {mode === ModeAuth.Login ? 'Login' : 'Sign up'}
+          </ElevatedButton>
+          <TextButton
+            style={styles.changeMode}
+            onPress={() =>
+              changeMode(
+                mode === ModeAuth.Login ? ModeAuth.SignUp : ModeAuth.Login,
+              )
+            }>
+            {mode === ModeAuth.Login
+              ? "I don't have an account"
+              : 'I had an account'}
+          </TextButton>
+          {mode === ModeAuth.Login && <AnotherAuth />}
+        </>
+      )}
+      {isLoading && <Indicator style={styles.indicator} size={'large'} />}
+    </View>
   );
+
+  if (Dimensions.get('screen').height >= 1024) {
+    return content;
+  }
+
+  return <ScrollView>{content}</ScrollView>;
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: MyDimesions.kPaddingSmall,
-    backgroundColor: MyColors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  inputsContainer: {
-    flex: 1,
+  header: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: MyDimesions.kPaddingLarge,
   },
   input: {
     marginTop: MyDimesions.kPaddingLarge,

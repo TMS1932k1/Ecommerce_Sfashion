@@ -6,6 +6,7 @@ import TextButton from './common/TextButton';
 import AnotherAuth from './auth/AnotherAuth';
 import GoogleButton from './auth/GoogleButton';
 import Indicator from './common/Indicator';
+import ImageButton from './common/ImageButton';
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   AnotherAuth,
   GoogleButton,
   Indicator,
+  ImageButton,
 };
