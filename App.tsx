@@ -1,9 +1,12 @@
 import React from 'react';
-import {SafeAreaView, StatusBar, View, useColorScheme} from 'react-native';
+import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {AuthScreen} from './src/screens';
 import {MyStylers} from './src/constants';
+import {Provider} from 'react-redux';
+import {store} from './src/stores/store';
+import {RootNavigator} from './src/navigator';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -13,13 +16,15 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={MyStylers.rootContainer}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <AuthScreen />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={MyStylers.rootContainer}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <RootNavigator />
+      </SafeAreaView>
+    </Provider>
   );
 }
 

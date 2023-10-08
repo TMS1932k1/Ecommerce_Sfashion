@@ -5,6 +5,7 @@ import CheckboxText from './auth/CheckboxText';
 import TextButton from './common/TextButton';
 import AnotherAuth from './auth/AnotherAuth';
 import GoogleButton from './auth/GoogleButton';
+import Indicator from './common/Indicator';
 
 export {
   Header,
@@ -14,4 +15,5 @@ export {
   TextButton,
   AnotherAuth,
   GoogleButton,
+  Indicator,
 };

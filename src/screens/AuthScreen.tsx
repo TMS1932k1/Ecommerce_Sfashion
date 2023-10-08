@@ -5,14 +5,21 @@ import {
   CheckboxText,
   ElevatedButton,
   Header,
+  Indicator,
   Input,
   TextButton,
 } from '../components';
 import {useEffect, useState} from 'react';
 import {ModeAuth, ValueInput} from '../types';
-import {regexEmail, regexPassword, regexUserName} from '../utils';
+import {regexEmail, regexPassword, regexUserName, showToast} from '../utils';
+import {useAppDispatch, useAppSelector} from '../stores/store';
+import {loginAuth, signUpAuth} from '../stores/auth/authSlice';
 
 export default function AuthScreen() {
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(state => state.authState.isLoading);
+  const error = useAppSelector(state => state.authState.error);
+
   // Auth mode: Login and SignUp
   const [mode, setMode] = useState(ModeAuth.Login);
 
@@ -38,6 +45,7 @@ export default function AuthScreen() {
   });
   const [agreement, setAgreeMent] = useState(false);
 
+  // Check [valid: boolean] and set value
   useEffect(() => {
     // Set with login [email and password]
     if (mode === ModeAuth.Login) {
@@ -56,12 +64,37 @@ export default function AuthScreen() {
     }
   }, [userName, email, password, confirmPassword, mode, agreement]);
 
+  // If have autj's error will show error toast
+  useEffect(() => {
+    if (error && !isLoading) {
+      console.log(error);
+      showToast(error);
+    }
+  }, [error, isLoading]);
+
   // Set mode with [modeAuth: ModeAuth]
   function changeMode(modeAuth: ModeAuth) {
     setMode(modeAuth);
   }
 
-  function onSubmit() {}
+  function onSubmit() {
+    // With mode is login
+    if (mode === ModeAuth.Login) {
+      dispatch(loginAuth({email: email.value, password: password.value}));
+    }
+
+    // With mode is sign up
+    if (mode === ModeAuth.SignUp) {
+      dispatch(
+        signUpAuth({
+          name: userName.value,
+          email: email.value,
+          password: password.value,
+          passwordConfirm: confirmPassword.value,
+        }),
+      );
+    }
+  }
 
   // Set and check valid for userName with [value: string]
   function onChangeUserName(value: string) {
@@ -149,23 +182,28 @@ export default function AuthScreen() {
               condication
             </CheckboxText>
           )}
-          <ElevatedButton
-            style={styles.login}
-            onPress={valid ? onSubmit : undefined}>
-            {mode === ModeAuth.Login ? 'Login' : 'Sign up'}
-          </ElevatedButton>
-          <TextButton
-            style={styles.changeMode}
-            onPress={() =>
-              changeMode(
-                mode === ModeAuth.Login ? ModeAuth.SignUp : ModeAuth.Login,
-              )
-            }>
-            {mode === ModeAuth.Login
-              ? "I don't have an account"
-              : 'I had an account'}
-          </TextButton>
-          {mode === ModeAuth.Login && <AnotherAuth />}
+          {!isLoading && (
+            <>
+              <ElevatedButton
+                style={styles.login}
+                onPress={valid ? onSubmit : undefined}>
+                {mode === ModeAuth.Login ? 'Login' : 'Sign up'}
+              </ElevatedButton>
+              <TextButton
+                style={styles.changeMode}
+                onPress={() =>
+                  changeMode(
+                    mode === ModeAuth.Login ? ModeAuth.SignUp : ModeAuth.Login,
+                  )
+                }>
+                {mode === ModeAuth.Login
+                  ? "I don't have an account"
+                  : 'I had an account'}
+              </TextButton>
+              {mode === ModeAuth.Login && <AnotherAuth />}
+            </>
+          )}
+          {isLoading && <Indicator style={styles.indicator} size={'large'} />}
         </View>
       </View>
     </ScrollView>
@@ -195,5 +233,8 @@ const styles = StyleSheet.create({
   checkbox: {
     marginTop: MyDimesions.kPaddingSmall,
     paddingHorizontal: MyDimesions.kPaddingSmall,
+  },
+  indicator: {
+    marginTop: MyDimesions.kPaddingLarge,
   },
 });

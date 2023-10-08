@@ -3,6 +3,7 @@ export const MyDimesions = {
   kPaddingMedium: 16,
   kPaddingLarge: 20,
   kLogoSize: 36,
+  kIconLarge: 30,
   kIconMedium: 24,
   kLabelSmall: 18,
   kLabelMedium: 20,
