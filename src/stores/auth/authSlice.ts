@@ -1,12 +1,7 @@
-import {createSlice, createAsyncThunk, AsyncThunk} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {postLoginAuth, postSignUpAuth} from '../../reponsitories';
 import {User} from '../../types';
-
-type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;
-
-type PendingAction = ReturnType<GenericAsyncThunk['pending']>;
-type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>;
-type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>;
+import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 
 export interface AuthState {
   isLoading: boolean;

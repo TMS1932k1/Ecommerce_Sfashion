@@ -17,6 +17,7 @@ import {loginAuth, signUpAuth} from '../stores/auth/authSlice';
 
 export default function AuthScreen() {
   const dispatch = useAppDispatch();
+
   const isLoading = useAppSelector(state => state.authState.isLoading);
   const error = useAppSelector(state => state.authState.error);
 

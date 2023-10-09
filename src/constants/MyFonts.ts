@@ -7,6 +7,7 @@ export const fontFamily = {
   opensansBold: 'opensans_bold',
   opensansRegular: 'opensans_regular',
   opensansSemmiBold: 'opensans_semibold',
+  bodonimodaItalic: 'bodonimoda_italic',
 };
 
 export const MyFonts = StyleSheet.create({
@@ -14,6 +15,13 @@ export const MyFonts = StyleSheet.create({
     fontSize: MyDimesions.kLogoSize,
     color: MyColors.titleActive,
     fontFamily: fontFamily.dancingscriptSemmiBold,
+  },
+  bannerStyle: {
+    fontSize: MyDimesions.kBannerSize,
+    color: MyColors.titleActive,
+    fontFamily: fontFamily.bodonimodaItalic,
+    fontStyle: 'italic',
+    fontWeight: 'bold',
   },
   labelStyle: {
     fontSize: MyDimesions.kLabelSmall,
