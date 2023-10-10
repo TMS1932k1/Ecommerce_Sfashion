@@ -2,11 +2,13 @@ import authSlice from './auth/authSlice';
 import {AsyncThunk, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import collectionsSlice from './home/collectionsSlice';
+import arrivalsSlice from './home/arrivalsSlice';
 
 export const store = configureStore({
   reducer: {
     authState: authSlice,
     collectionsState: collectionsSlice,
+    arrivalsState: arrivalsSlice,
   },
 });
 

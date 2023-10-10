@@ -3,61 +3,58 @@ import {Product} from './../../types';
 import {getProducts} from '../../reponsitories';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 
-export interface CollectionsState {
+export interface ArrivalsState {
   isLoading: boolean;
-  collections?: Product[];
+  arrivals?: Product[];
   error?: string;
 }
 
-const initialState: CollectionsState = {
+const initialState: ArrivalsState = {
   isLoading: false,
-  collections: [],
+  arrivals: [],
 };
 
-export const fetchGetCollection = createAsyncThunk(
-  'home/collections',
+export const fetchGetArrival = createAsyncThunk(
+  'home/arrivals',
   async (path: string) => {
     const response = await getProducts(path);
     return response;
   },
 );
 
-export const collectionsState = createSlice({
-  name: 'collections',
+export const arrivalsState = createSlice({
+  name: 'arrivals',
   initialState: initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchGetCollection.fulfilled, (state, action) => {
-        // If have errors will set error value and set collection is undefined
+      .addCase(fetchGetArrival.fulfilled, (state, action) => {
+        // If have errors will set error value and set arrivals is undefined
         if (action.payload.error) {
-          state.collections = undefined;
+          state.arrivals = undefined;
           state.error = action.payload.error;
         }
 
-        // If successfull will set collection value and set error is undefined
+        // If successfull will set arrivals value and set error is undefined
         if (action.payload.response) {
-          state.collections = action.payload.response.data['data'].splice(
-            0,
-            10,
-          );
+          state.arrivals = action.payload.response.data['data'].splice(0, 10);
           state.error = undefined;
         }
       })
       .addMatcher<PendingAction>(
-        action => action.type.endsWith('/collections/pending'),
+        action => action.type.endsWith('/arrivals/pending'),
         (state, action) => {
           state.isLoading = true;
         },
       )
       .addMatcher<RejectedAction>(
-        action => action.type.endsWith('/collections/rejected'),
+        action => action.type.endsWith('/arrivals/rejected'),
         (state, action) => {
           state.isLoading = false;
         },
       )
       .addMatcher<FulfilledAction>(
-        action => action.type.endsWith('/collections/fulfilled'),
+        action => action.type.endsWith('/arrivals/fulfilled'),
         (state, action) => {
           state.isLoading = false;
         },
@@ -65,5 +62,5 @@ export const collectionsState = createSlice({
   },
 });
 
-export const {} = collectionsState.actions;
-export default collectionsState.reducer;
+export const {} = arrivalsState.actions;
+export default arrivalsState.reducer;

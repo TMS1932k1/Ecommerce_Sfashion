@@ -1,4 +1,4 @@
 import {postLoginAuth, postSignUpAuth} from './AuthQuery';
-import {getCollections} from './ProductsQuery';
+import {getProducts} from './ProductsQuery';
 
-export {postLoginAuth, postSignUpAuth, getCollections};
+export {postLoginAuth, postSignUpAuth, getProducts};

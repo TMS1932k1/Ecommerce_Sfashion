@@ -6,10 +6,10 @@ export const MyApp = {
   signUpApi: '/api/user/signup',
   productsApi: '/api/products',
   imageApi: '/img/products/',
+  arrivals: <Collection>{label: 'Arrial', path: '/top-arrival'},
   collections: <Collection[]>[
     {label: 'Hot', path: '/top-hot'},
-    {label: 'Sale', path: '/top-sale'},
     {label: 'Trending', path: '/top-trending'},
-    {label: 'Arrial', path: '/top-arrival'},
+    {label: 'Sale', path: '/top-sale'},
   ],
 };

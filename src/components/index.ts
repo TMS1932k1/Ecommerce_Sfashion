@@ -14,6 +14,9 @@ import PlaceholderLoading from './common/PlaceholderLoading';
 import PlaceholderItem from './common/PlaceholderItem';
 import ProductList from './home/ProductList';
 import ProductItem from './home/ProductItem';
+import CollectionsSession from './home/CollectionsSession';
+import ArrivalsSession from './home/ArrivalsSession';
+import MoreButton from './home/MoreButton';
 
 export {
   Header,
@@ -32,4 +35,7 @@ export {
   PlaceholderItem,
   ProductList,
   ProductItem,
+  CollectionsSession,
+  ArrivalsSession,
+  MoreButton,
 };

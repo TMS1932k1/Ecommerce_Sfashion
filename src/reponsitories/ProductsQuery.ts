@@ -2,7 +2,7 @@ import axios from 'axios';
 import {MyApp} from '../constants';
 import {DataResponse} from '../types';
 
-export const getCollections = async (path: string): Promise<DataResponse> => {
+export const getProducts = async (path: string): Promise<DataResponse> => {
   try {
     const response = await axios({
       method: 'get',

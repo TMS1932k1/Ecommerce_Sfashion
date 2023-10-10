@@ -6,9 +6,10 @@ import {MyDimesions} from '../../constants';
 interface Props {
   style?: StyleProp<ViewStyle>;
   products: Product[];
+  onClickProduct?: (product: Product) => void;
 }
 
-export default function ProductList({products, style}: Props) {
+export default function ProductList({products, style, onClickProduct}: Props) {
   return (
     <FlatList
       horizontal
@@ -17,7 +18,11 @@ export default function ProductList({products, style}: Props) {
       keyExtractor={item => item.id}
       data={products}
       renderItem={({item}) => (
-        <ProductItem style={styles.item} product={item} />
+        <ProductItem
+          style={styles.item}
+          product={item}
+          onClickProduct={onClickProduct}
+        />
       )}
     />
   );

@@ -2,21 +2,34 @@ import {
   Image,
   StyleProp,
   StyleSheet,
-  View,
   ViewStyle,
   Text,
+  Pressable,
 } from 'react-native';
 import {Product} from '../../types';
-import {MyApp, MyColors, MyDimesions, MyFonts} from '../../constants';
+import {
+  MyApp,
+  MyColors,
+  MyDimesions,
+  MyFonts,
+  MyStylers,
+} from '../../constants';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
   product: Product;
+  onClickProduct?: (product: Product) => void;
 }
 
-export default function ProductItem({style, product}: Props) {
+export default function ProductItem({style, product, onClickProduct}: Props) {
   return (
-    <View style={[styles.container, style]}>
+    <Pressable
+      onPress={onClickProduct ? () => onClickProduct(product) : undefined}
+      style={({pressed}) => [
+        styles.container,
+        style,
+        (pressed || !onClickProduct) && MyStylers.press,
+      ]}>
       <Image
         style={styles.image}
         resizeMode="cover"
@@ -28,7 +41,7 @@ export default function ProductItem({style, product}: Props) {
       <Text style={[MyFonts.bodyStyle, styles.price]} numberOfLines={1}>
         {product.price} VND
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
