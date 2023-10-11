@@ -6,14 +6,14 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import {Product} from '../../types';
+import {Product} from '../../../types';
 import {
   MyApp,
   MyColors,
   MyDimesions,
   MyFonts,
   MyStylers,
-} from '../../constants';
+} from '../../../constants';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -33,7 +33,9 @@ export default function ProductItem({style, product, onClickProduct}: Props) {
       <Image
         style={styles.image}
         resizeMode="cover"
-        source={{uri: `${MyApp.baseUrl}${MyApp.imageApi}${product.imageCover}`}}
+        source={{
+          uri: `${MyApp.baseUrl}${MyApp.imageProductsApi}${product.imageCover}`,
+        }}
       />
       <Text style={[MyFonts.bodyStyle, styles.name]} numberOfLines={2}>
         {product.name}

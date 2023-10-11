@@ -1,60 +1,60 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {Product} from './../../types';
-import {getProducts} from '../../reponsitories';
+import {Category} from './../../types';
+import {getCategories, getProducts} from '../../reponsitories';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 
-export interface ArrivalsState {
+export interface CategoriesState {
   isLoading: boolean;
-  arrivals?: Product[];
+  categories?: Category[];
   error?: string;
 }
 
-const initialState: ArrivalsState = {
+const initialState: CategoriesState = {
   isLoading: false,
-  arrivals: [],
+  categories: [],
 };
 
-export const fetchGetArrival = createAsyncThunk(
-  'home/arrivals',
-  async (path: string) => {
-    const response = await getProducts(path);
+export const fetchGetCategories = createAsyncThunk(
+  'home/categories',
+  async () => {
+    const response = await getCategories();
     return response;
   },
 );
 
-export const arrivalsState = createSlice({
-  name: 'arrivals',
+export const categoiesState = createSlice({
+  name: 'categories',
   initialState: initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchGetArrival.fulfilled, (state, action) => {
+      .addCase(fetchGetCategories.fulfilled, (state, action) => {
         // If have errors will set error value and set arrivals is undefined
         if (action.payload.error) {
-          state.arrivals = undefined;
+          state.categories = undefined;
           state.error = action.payload.error;
         }
 
         // If successfull will set arrivals value and set error is undefined
         if (action.payload.response) {
-          state.arrivals = action.payload.response.data['data'].splice(0, 6);
+          state.categories = action.payload.response.data['data'];
           state.error = undefined;
         }
       })
       .addMatcher<PendingAction>(
-        action => action.type.endsWith('/arrivals/pending'),
+        action => action.type.endsWith('/categories/pending'),
         (state, action) => {
           state.isLoading = true;
         },
       )
       .addMatcher<RejectedAction>(
-        action => action.type.endsWith('/arrivals/rejected'),
+        action => action.type.endsWith('/categories/rejected'),
         (state, action) => {
           state.isLoading = false;
         },
       )
       .addMatcher<FulfilledAction>(
-        action => action.type.endsWith('/arrivals/fulfilled'),
+        action => action.type.endsWith('/categories/fulfilled'),
         (state, action) => {
           state.isLoading = false;
         },
@@ -62,5 +62,5 @@ export const arrivalsState = createSlice({
   },
 });
 
-export const {} = arrivalsState.actions;
-export default arrivalsState.reducer;
+export const {} = categoiesState.actions;
+export default categoiesState.reducer;

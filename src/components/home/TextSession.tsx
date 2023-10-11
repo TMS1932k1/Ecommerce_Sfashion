@@ -1,13 +1,7 @@
 import {ReactNode} from 'react';
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {MyColors, MyDimesions, MyFonts} from '../../constants';
+import Line from './Line';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -18,7 +12,7 @@ export default function TextSession({style, children}: Props) {
   return (
     <View style={[styles.container, style]}>
       <Text style={[MyFonts.bodyStyle, styles.text]}>{children}</Text>
-      <Image source={require('../../../assets/images/line.png')} />
+      <Line />
     </View>
   );
 }

@@ -5,11 +5,18 @@ export const MyApp = {
   loginApi: '/api/user/login',
   signUpApi: '/api/user/signup',
   productsApi: '/api/products',
-  imageApi: '/img/products/',
+  imageProductsApi: '/img/products/',
+  imageCategorisApi: '/img/categories/',
+  categoriesApi: '/api/categories',
   arrivals: <Collection>{label: 'Arrial', path: '/top-arrival'},
   collections: <Collection[]>[
     {label: 'Hot', path: '/top-hot'},
     {label: 'Trending', path: '/top-trending'},
     {label: 'Sale', path: '/top-sale'},
+  ],
+  hotlines: [
+    {image: require('../../assets/images/youtube.png'), id: 1},
+    {image: require('../../assets/images/instagram.png'), id: 2},
+    {image: require('../../assets/images/twitter.png'), id: 3},
   ],
 };

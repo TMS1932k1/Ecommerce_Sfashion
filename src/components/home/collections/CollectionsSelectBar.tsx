@@ -5,7 +5,7 @@ import {
   MyDimesions,
   MyFonts,
   MyStylers,
-} from '../../constants';
+} from '../../../constants';
 
 interface Props {
   currentIndex?: number;
@@ -46,7 +46,9 @@ export default function CollectionsSelectBar({
               {collection.label}
             </Text>
             {currentIndex === collections.indexOf(collection) && (
-              <Image source={require('../../../assets/images/rectangle.png')} />
+              <Image
+                source={require('../../../../assets/images/rectangle.png')}
+              />
             )}
           </View>
         </Pressable>

@@ -37,10 +37,7 @@ export const collectionsState = createSlice({
 
         // If successfull will set collection value and set error is undefined
         if (action.payload.response) {
-          state.collections = action.payload.response.data['data'].splice(
-            0,
-            10,
-          );
+          state.collections = action.payload.response.data['data'].splice(0, 6);
           state.error = undefined;
         }
       })

@@ -6,7 +6,9 @@ import {MyDimesions, MyFonts} from '../constants';
 import {
   ArrivalsSession,
   Banner,
+  CategoriesSession,
   CollectionsSession,
+  Footer,
   ImageButton,
 } from '../components';
 import {Product} from '../types';
@@ -53,17 +55,17 @@ export default function HomeScreen({navigation}: Props) {
         <Banner onPress={onExploreCollection} />
         <View style={styles.contentContainer}>
           <ArrivalsSession onClickProduct={onClickProduct} />
+          <CategoriesSession />
           <CollectionsSession onClickProduct={onClickProduct} />
         </View>
+        <Footer style={styles.footer} />
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    paddingHorizontal: MyDimesions.kPaddingSmall,
-  },
+  contentContainer: {},
   menu: {
     marginRight: MyDimesions.kPaddingSmall,
   },
@@ -74,5 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  footer: {
+    marginTop: MyDimesions.kPaddingLarge * 3,
   },
 });

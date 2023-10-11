@@ -1,13 +1,14 @@
 import {StyleSheet, View} from 'react-native';
-import TextSession from './TextSession';
+import TextSession from '../TextSession';
 import CollectionsSelectBar from './CollectionsSelectBar';
-import {useAppDispatch, useAppSelector} from '../../stores/store';
+import {useAppDispatch, useAppSelector} from '../../../stores/store';
 import {useEffect, useState} from 'react';
-import {fetchGetCollection} from '../../stores/home/collectionsSlice';
-import {MyApp, MyDimesions} from '../../constants';
-import PlaceholderLoading from '../common/PlaceholderLoading';
-import ProductList from './ProductList';
-import {Product} from '../../types';
+import {fetchGetCollection} from '../../../stores/home/collectionsSlice';
+import {MyApp, MyDimesions} from '../../../constants';
+import PlaceholderLoading from '../../common/PlaceholderLoading';
+import ProductList from '../products/ProductList';
+import {Product} from '../../../types';
+import MoreButton from '../MoreButton';
 
 interface Props {
   onClickProduct?: (product: Product) => void;
@@ -33,6 +34,9 @@ export default function CollectionsSession({onClickProduct}: Props) {
     setIndex(value);
   }
 
+  // Set click more
+  function onClickMore() {}
+
   return (
     <View>
       <TextSession style={styles.textSession}>
@@ -50,6 +54,9 @@ export default function CollectionsSession({onClickProduct}: Props) {
           onClickProduct={onClickProduct}
         />
       )}
+      {!isLoading && collections!.length > 0 && (
+        <MoreButton style={styles.more} onPress={onClickMore} />
+      )}
     </View>
   );
 }
@@ -59,6 +66,9 @@ const styles = StyleSheet.create({
     marginTop: MyDimesions.kPaddingLarge,
   },
   products: {
+    marginTop: MyDimesions.kPaddingLarge,
+  },
+  more: {
     marginTop: MyDimesions.kPaddingLarge,
   },
 });

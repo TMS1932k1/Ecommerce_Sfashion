@@ -3,12 +3,14 @@ import {AsyncThunk, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import collectionsSlice from './home/collectionsSlice';
 import arrivalsSlice from './home/arrivalsSlice';
+import categoriesSlice from './home/categoriesSlice';
 
 export const store = configureStore({
   reducer: {
     authState: authSlice,
     collectionsState: collectionsSlice,
     arrivalsState: arrivalsSlice,
+    categoriesState: categoriesSlice,
   },
 });
 

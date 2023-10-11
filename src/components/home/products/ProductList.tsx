@@ -1,7 +1,7 @@
 import {FlatList, StyleProp, StyleSheet, ViewStyle} from 'react-native';
-import {Product} from '../../types';
+import {Product} from '../../../types';
 import ProductItem from './ProductItem';
-import {MyDimesions} from '../../constants';
+import {MyDimesions} from '../../../constants';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
