@@ -1,7 +1,7 @@
 import {ReactNode} from 'react';
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {MyColors, MyDimesions, MyFonts} from '../../constants';
-import Line from './Line';
+import Line from '../common/Line';
 
 interface Props {
   style?: StyleProp<ViewStyle>;

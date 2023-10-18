@@ -47,7 +47,11 @@ export default function HomeScreen({navigation}: Props) {
   function onExploreCollection() {}
 
   // Set on click product
-  function onClickProduct(product: Product) {}
+  function onClickProduct(product: Product) {
+    navigation.navigate('ProductScreen', {
+      id: product.id,
+    });
+  }
 
   return (
     <ScrollView>

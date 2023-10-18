@@ -1,17 +1,17 @@
 import axios from 'axios';
-import {MyApp} from '../constants';
 import {DataResponse} from '../types';
+import {MyApp} from '../constants';
 
-export const getProducts = async (path: string): Promise<DataResponse> => {
+export const getProduct = async (id: string): Promise<DataResponse> => {
   try {
     const response = await axios({
       method: 'get',
       baseURL: MyApp.baseUrl,
-      url: MyApp.productsApi + path,
+      url: MyApp.productsApi + `/${id}`,
     });
 
     return {response: response.data};
   } catch (e) {
-    return {error: 'Error in fetching products'};
+    return {error: 'Error in fetching product'};
   }
 };

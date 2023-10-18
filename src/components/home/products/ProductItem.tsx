@@ -35,6 +35,7 @@ export default function ProductItem({style, product, onClickProduct}: Props) {
         resizeMode="cover"
         source={{
           uri: `${MyApp.baseUrl}${MyApp.imageProductsApi}${product.imageCover}`,
+          cache: 'reload',
         }}
       />
       <Text style={[MyFonts.bodyStyle, styles.name]} numberOfLines={2}>

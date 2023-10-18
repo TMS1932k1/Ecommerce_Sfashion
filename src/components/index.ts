@@ -18,11 +18,21 @@ import CollectionsSession from './home/collections/CollectionsSession';
 import ArrivalsSession from './home/arrivals/ArrivalsSession';
 import MoreButton from './home/MoreButton';
 import CategoriesSession from './home/categories/CategoriesSession';
-import Line from './home/Line';
+import Line from './common/Line';
 import CategoriesList from './home/categories/CategoiesList';
 import PlaceholderCategory from './home/categories/PlaceholderCategory';
-import Footer from './home/Footer';
+import Footer from './common/Footer';
 import HotlineItem from './home/footer/HotlineItem';
+import CarouselImage from './product/CarouselImage';
+import CarouselItem from './product/CarouselItem';
+import CircleIconButton from './common/CircleIconButton';
+import Infomation from './product/Infomation';
+import SizeBar from './product/SizeBar';
+import AddCartBar from './product/AddCartBar';
+import AddCartButton from './product/AddCartButton';
+import IconButton from './common/IconButton';
+import DescriptionSession from './product/DescriptionSession';
+import ReviewSession from './product/ReviewSession';
 
 export {
   Header,
@@ -50,4 +60,14 @@ export {
   PlaceholderCategory,
   Footer,
   HotlineItem,
+  CarouselImage,
+  CarouselItem,
+  CircleIconButton,
+  Infomation,
+  SizeBar,
+  AddCartBar,
+  AddCartButton,
+  IconButton,
+  DescriptionSession,
+  ReviewSession,
 };

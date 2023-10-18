@@ -1,14 +1,7 @@
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {MyApp, MyDimesions, MyFonts} from '../../constants';
 import Line from './Line';
-import HotlineItem from './footer/HotlineItem';
+import HotlineItem from '../home/footer/HotlineItem';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -34,7 +27,6 @@ export default function Footer({style}: Props) {
       <Text style={[MyFonts.bodyStyle, styles.hotline]}>
         {'support@openui.design\n+60 825 876\n08:00 - 22:00 - Everyday'}
       </Text>
-      <Line />
     </View>
   );
 }
