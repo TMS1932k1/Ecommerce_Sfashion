@@ -3,6 +3,8 @@ import {Product} from '../../types';
 import {MyColors, MyDimesions, MyFonts} from '../../constants';
 import SizeBar from './SizeBar';
 import {useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../stores/store';
+import {chooseProductSize} from '../../stores/product/productSlice';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -10,11 +12,12 @@ interface Props {
 }
 
 export default function Infomation({style, product}: Props) {
-  const [currentSizeIndex, setCurrentSizeIndex] = useState(0);
+  const dispatch = useAppDispatch();
+  const sizeIndex = useAppSelector(state => state.productState.size);
 
   // Set current size to show with index
   function onSelectSize(index: number) {
-    setCurrentSizeIndex(index);
+    dispatch(chooseProductSize(index));
   }
 
   return (
@@ -28,7 +31,7 @@ export default function Infomation({style, product}: Props) {
       <SizeBar
         style={styles.sizebar}
         sizes={product.sizes}
-        value={currentSizeIndex}
+        value={sizeIndex}
         onPress={onSelectSize}
       />
     </View>

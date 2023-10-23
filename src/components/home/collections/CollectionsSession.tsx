@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import TextSession from '../TextSession';
+import TextSession from '../../common/TextSession';
 import CollectionsSelectBar from './CollectionsSelectBar';
 import {useAppDispatch, useAppSelector} from '../../../stores/store';
 import {useEffect, useState} from 'react';

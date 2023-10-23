@@ -1,3 +1,4 @@
+import cartSlice from './cart/cartSlice';
 import authSlice from './auth/authSlice';
 import {AsyncThunk, configureStore} from '@reduxjs/toolkit';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
@@ -5,6 +6,7 @@ import collectionsSlice from './home/collectionsSlice';
 import arrivalsSlice from './home/arrivalsSlice';
 import categoriesSlice from './home/categoriesSlice';
 import productSlice from './product/productSlice';
+import reviewsSlice from './product/reviewsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
     arrivalsState: arrivalsSlice,
     categoriesState: categoriesSlice,
     productState: productSlice,
+    reviewsState: reviewsSlice,
+    cartState: cartSlice,
   },
 });
 

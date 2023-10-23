@@ -1,11 +1,12 @@
 import {Product} from '../../types';
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 import {getProduct} from '../../reponsitories';
 
 export interface ProductState {
   isLoading: boolean;
   product?: Product;
+  size?: number;
   error?: string;
 }
 
@@ -17,7 +18,6 @@ export const fetchGetProduct = createAsyncThunk(
   'product',
   async (id: string) => {
     const response = await getProduct(id);
-
     return response;
   },
 );
@@ -25,19 +25,25 @@ export const fetchGetProduct = createAsyncThunk(
 export const productState = createSlice({
   name: 'product',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    chooseProductSize: (state, action: PayloadAction<number>) => {
+      state.size = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchGetProduct.fulfilled, (state, action) => {
         // If have errors will set error value and set product is undefined
         if (action.payload.error) {
           state.product = undefined;
+          state.size = undefined;
           state.error = action.payload.error;
         }
 
         // If successfull will set product value and set error is undefined
         if (action.payload.response) {
           state.product = action.payload.response.data['data'];
+          state.size = 0;
           state.error = undefined;
         }
       })
@@ -62,5 +68,5 @@ export const productState = createSlice({
   },
 });
 
-export const {} = productState.actions;
+export const {chooseProductSize} = productState.actions;
 export default productState.reducer;

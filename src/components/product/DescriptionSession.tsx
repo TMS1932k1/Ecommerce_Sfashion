@@ -33,7 +33,7 @@ export default function DescriptionSession({
 
 const styles = StyleSheet.create({
   container: {
-    padding: MyDimesions.kPaddingSmall,
+    paddingHorizontal: MyDimesions.kPaddingSmall,
   },
   title: {
     fontSize: MyDimesions.kBodyMedium,

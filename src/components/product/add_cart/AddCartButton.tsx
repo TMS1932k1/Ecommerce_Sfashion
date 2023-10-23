@@ -6,7 +6,7 @@ import {
   Text,
   ViewStyle,
 } from 'react-native';
-import {MyColors, MyDimesions, MyFonts, MyStylers} from '../../constants';
+import {MyColors, MyDimesions, MyFonts, MyStylers} from '../../../constants';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -20,10 +20,11 @@ export default function AddCartButton({style, onPress}: Props) {
         styles.container,
         style,
         (pressed || !onPress) && MyStylers.press,
-      ]}>
+      ]}
+      onPress={onPress}>
       <Image
         style={styles.addImage}
-        source={require('../../../assets/images/plus.png')}
+        source={require('../../../../assets/images/plus.png')}
       />
       <Text style={[MyFonts.bodyStyle, styles.text]}>ADD TO CART</Text>
     </Pressable>

@@ -8,7 +8,7 @@ import GoogleButton from './auth/GoogleButton';
 import Indicator from './common/Indicator';
 import ImageButton from './common/ImageButton';
 import Banner from './home/Banner';
-import TextSession from './home/TextSession';
+import TextSession from './common/TextSession';
 import CollectionsSelectBar from './home/collections/CollectionsSelectBar';
 import PlaceholderLoading from './common/PlaceholderLoading';
 import PlaceholderItem from './common/PlaceholderItem';
@@ -23,16 +23,23 @@ import CategoriesList from './home/categories/CategoiesList';
 import PlaceholderCategory from './home/categories/PlaceholderCategory';
 import Footer from './common/Footer';
 import HotlineItem from './home/footer/HotlineItem';
-import CarouselImage from './product/CarouselImage';
-import CarouselItem from './product/CarouselItem';
+import CarouselImage from './product/carousel/CarouselImage';
+import CarouselItem from './product/carousel/CarouselItem';
 import CircleIconButton from './common/CircleIconButton';
 import Infomation from './product/Infomation';
 import SizeBar from './product/SizeBar';
-import AddCartBar from './product/AddCartBar';
-import AddCartButton from './product/AddCartButton';
+import AddCartBar from './product/add_cart/AddCartBar';
+import AddCartButton from './product/add_cart/AddCartButton';
 import IconButton from './common/IconButton';
 import DescriptionSession from './product/DescriptionSession';
-import ReviewSession from './product/ReviewSession';
+import ReviewSession from './product/review/ReviewSession';
+import ReviewItem from './product/review/ReviewItem';
+import PlaceholderReview from './product/review/PlaceholderReview';
+import ReviewInput from './product/review/ReviewInput';
+import SumSession from './cart/SumSession';
+import OrderList from './cart/OrderList';
+import OrderItem from './cart/OrderItem';
+import AmountBar from './cart/AmountBar';
 
 export {
   Header,
@@ -70,4 +77,11 @@ export {
   IconButton,
   DescriptionSession,
   ReviewSession,
+  ReviewItem,
+  PlaceholderReview,
+  ReviewInput,
+  SumSession,
+  OrderList,
+  OrderItem,
+  AmountBar,
 };

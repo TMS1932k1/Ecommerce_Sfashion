@@ -1,6 +1,6 @@
 import {Dimensions, Image, Pressable, StyleSheet, View} from 'react-native';
-import {MyApp, MyColors, MyDimesions, MyStylers} from '../../constants';
-import CircleIconButton from '../common/CircleIconButton';
+import {MyApp, MyColors, MyDimesions, MyStylers} from '../../../constants';
+import CircleIconButton from '../../common/CircleIconButton';
 
 interface Props {
   image: string;
@@ -22,7 +22,7 @@ export default function CarouselItem({image, onPressResize}: Props) {
         />
         <CircleIconButton
           style={styles.resize}
-          image={require('../../../assets/images/resize.png')}
+          image={require('../../../../assets/images/resize.png')}
           onPress={onPressResize ? () => onPressResize(image) : undefined}
         />
       </View>

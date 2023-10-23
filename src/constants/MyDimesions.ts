@@ -12,4 +12,5 @@ export const MyDimesions = {
   kBodySmall: 14,
   kBodyMedium: 16,
   kBodyLarge: 18,
+  kCartNumber: 10,
 };

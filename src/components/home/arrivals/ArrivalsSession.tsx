@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {Product} from '../../../types';
 import {useAppDispatch, useAppSelector} from '../../../stores/store';
-import TextSession from '../TextSession';
+import TextSession from '../../common/TextSession';
 import {MyApp, MyDimesions} from '../../../constants';
 import PlaceholderLoading from '../../common/PlaceholderLoading';
 import ProductList from '../products/ProductList';

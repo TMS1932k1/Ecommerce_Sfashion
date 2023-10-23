@@ -13,9 +13,10 @@ import {
   Footer,
   Indicator,
   Infomation,
-  Line,
   ReviewSession,
 } from '../components';
+import {addOrder} from '../stores/cart/cartSlice';
+import {showToast} from '../utils';
 
 interface Props {
   navigation: NativeStackNavigationProp<RootNavigatorParams, 'ProductScreen'>;
@@ -26,6 +27,7 @@ export default function ProductScreen({navigation, route}: Props) {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(state => state.productState.isLoading);
   const product = useAppSelector(state => state.productState.product);
+  const sizeIndex = useAppSelector(state => state.productState.size);
 
   useLayoutEffect(() => {
     // Set header
@@ -48,8 +50,17 @@ export default function ProductScreen({navigation, route}: Props) {
     });
   }
 
-  // Add product to cart
-  function addCart() {}
+  // Add product to cart add show toast to notify add successfully
+  function addCart() {
+    dispatch(
+      addOrder({
+        product: product!,
+        amount: 1,
+        size: product!.sizes[sizeIndex!],
+      }),
+    );
+    showToast('Add to cart successfully');
+  }
 
   // Add product to favorite
   function addFavorite() {}
@@ -78,7 +89,6 @@ export default function ProductScreen({navigation, route}: Props) {
             material={product.material}
             desciption={product.description}
           />
-          <Line style={styles.line} />
           <ReviewSession style={styles.review} id={product.id} />
           <Footer style={styles.footer} />
         </View>
@@ -106,10 +116,8 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: MyDimesions.kPaddingLarge,
   },
-  line: {
-    marginTop: MyDimesions.kPaddingLarge,
-  },
   review: {
+    width: '100%',
     marginTop: MyDimesions.kPaddingLarge,
   },
   footer: {

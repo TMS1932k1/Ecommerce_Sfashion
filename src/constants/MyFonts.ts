@@ -28,6 +28,11 @@ export const MyFonts = StyleSheet.create({
     color: MyColors.titleActive,
     fontFamily: fontFamily.opensansBold,
   },
+  subStyle: {
+    fontSize: MyDimesions.kBodySmall,
+    color: MyColors.titleActive,
+    fontFamily: fontFamily.opensansBold,
+  },
   bodyStyle: {
     fontSize: MyDimesions.kBodySmall,
     color: MyColors.titleActive,

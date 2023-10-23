@@ -1,8 +1,8 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useLayoutEffect} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View, Text, Pressable} from 'react-native';
 import {RootNavigatorParams} from '../navigator';
-import {MyDimesions, MyFonts} from '../constants';
+import {MyColors, MyDimesions, MyFonts, MyStylers} from '../constants';
 import {
   ArrivalsSession,
   Banner,
@@ -12,12 +12,15 @@ import {
   ImageButton,
 } from '../components';
 import {Product} from '../types';
+import {useAppSelector} from '../stores/store';
 
 interface Props {
   navigation: NativeStackNavigationProp<RootNavigatorParams, 'HomeScreen'>;
 }
 
 export default function HomeScreen({navigation}: Props) {
+  const cartOrders = useAppSelector(state => state.cartState.orders);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: 'SFashion',
@@ -35,13 +38,28 @@ export default function HomeScreen({navigation}: Props) {
             style={styles.search}
             image={require('../../assets/images/search.png')}
           />
-          <ImageButton
-            image={require('../../assets/images/shopping_bag.png')}
-          />
+          <Pressable
+            style={({pressed}) => [
+              styles.cartContainer,
+              pressed && MyStylers.press,
+            ]}
+            onPress={onNavigateCartScreen}>
+            <ImageButton
+              image={require('../../assets/images/shopping_bag.png')}
+              onPress={onNavigateCartScreen}
+            />
+            {cartOrders.length > 0 && (
+              <View style={styles.cartCount}>
+                <Text style={[MyFonts.bodyStyle, styles.textCart]}>
+                  {cartOrders.length}
+                </Text>
+              </View>
+            )}
+          </Pressable>
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, cartOrders]);
 
   // Set on click banner
   function onExploreCollection() {}
@@ -53,11 +71,16 @@ export default function HomeScreen({navigation}: Props) {
     });
   }
 
+  // Navigate cart screen
+  function onNavigateCartScreen() {
+    navigation.navigate('CartScreen');
+  }
+
   return (
     <ScrollView>
       <View>
         <Banner onPress={onExploreCollection} />
-        <View style={styles.contentContainer}>
+        <View>
           <ArrivalsSession onClickProduct={onClickProduct} />
           <CategoriesSession />
           <CollectionsSession onClickProduct={onClickProduct} />
@@ -69,7 +92,25 @@ export default function HomeScreen({navigation}: Props) {
 }
 
 const styles = StyleSheet.create({
-  contentContainer: {},
+  cartContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cartCount: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 18,
+    height: 18,
+    borderRadius: 18,
+    backgroundColor: MyColors.error,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textCart: {
+    color: MyColors.background,
+    fontSize: MyDimesions.kCartNumber,
+  },
   menu: {
     marginRight: MyDimesions.kPaddingSmall,
   },

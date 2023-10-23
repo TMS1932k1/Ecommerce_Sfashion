@@ -1,7 +1,7 @@
 import {Image, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {MyColors, MyDimesions} from '../../constants';
+import {MyColors, MyDimesions} from '../../../constants';
 import AddCartButton from './AddCartButton';
-import IconButton from '../common/IconButton';
+import IconButton from '../../common/IconButton';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
