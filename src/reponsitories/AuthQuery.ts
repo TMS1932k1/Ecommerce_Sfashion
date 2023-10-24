@@ -14,7 +14,6 @@ export const postLoginAuth = async (data: {
       url: MyApp.loginApi,
       data: data,
     });
-
     return {response: response.data};
   } catch (error: any) {
     return {error: error.response.data.message};

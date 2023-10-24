@@ -26,7 +26,7 @@ export default function Infomation({style, product}: Props) {
         {product.name.toLocaleUpperCase()}
       </Text>
       <Text style={[MyFonts.bodyStyle, styles.price]}>
-        {`${product.price} VND`}
+        {`${product.price.toLocaleString()} VND`}
       </Text>
       <SizeBar
         style={styles.sizebar}

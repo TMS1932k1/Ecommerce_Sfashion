@@ -10,7 +10,9 @@ export default function SumSession() {
       <Text style={[MyFonts.bodyStyle, styles.title]}>
         {'E S T .  T O T A L'}
       </Text>
-      <Text style={[MyFonts.bodyStyle, styles.price]}>{sum} VND</Text>
+      <Text style={[MyFonts.bodyStyle, styles.price]}>
+        {sum.toLocaleString()} VND
+      </Text>
     </View>
   );
 }

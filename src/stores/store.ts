@@ -18,6 +18,10 @@ export const store = configureStore({
     reviewsState: reviewsSlice,
     cartState: cartSlice,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>;

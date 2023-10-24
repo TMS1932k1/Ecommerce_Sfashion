@@ -10,21 +10,17 @@ interface Props {
 
 export default function OrderList({orders, style}: Props) {
   return (
-    <View style={[styles.container, style]}>
+    <View style={style}>
       <FlatList
         data={orders}
         keyExtractor={item => `${item.product.id}${item.size}`}
-        renderItem={({item}) => <OrderItem order={item} />}
+        renderItem={({item}) => <OrderItem style={styles.item} order={item} />}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: MyDimesions.kPaddingSmall,
-  },
   item: {
     marginBottom: MyDimesions.kPaddingSmall,
   },

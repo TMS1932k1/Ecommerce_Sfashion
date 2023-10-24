@@ -14,7 +14,7 @@ const initialState: AuthState = {
 };
 
 export const loginAuth = createAsyncThunk(
-  'auth/loginAuth',
+  'auth',
   async (data: {email: string; password: string}) => {
     const response = await postLoginAuth(data);
     return response;
@@ -22,7 +22,7 @@ export const loginAuth = createAsyncThunk(
 );
 
 export const signUpAuth = createAsyncThunk(
-  'auth/loginAuth',
+  'auth',
   async (data: {
     name: string;
     email: string;

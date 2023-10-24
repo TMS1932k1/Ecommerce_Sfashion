@@ -40,6 +40,8 @@ import SumSession from './cart/SumSession';
 import OrderList from './cart/OrderList';
 import OrderItem from './cart/OrderItem';
 import AmountBar from './cart/AmountBar';
+import CheckoutBar from './cart/CheckoutBar';
+import AddressSession from './cart/AddressSession';
 
 export {
   Header,
@@ -84,4 +86,6 @@ export {
   OrderList,
   OrderItem,
   AmountBar,
+  CheckoutBar,
+  AddressSession,
 };

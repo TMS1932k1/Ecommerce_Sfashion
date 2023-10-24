@@ -3,8 +3,9 @@ import {RootNavigatorParams} from '../navigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useLayoutEffect} from 'react';
 import {MyColors, MyDimesions, MyFonts, MyStylers} from '../constants';
-import {OrderList, SumSession, TextSession} from '../components';
+import {CheckoutBar, OrderList, SumSession, TextSession} from '../components';
 import {useAppSelector} from '../stores/store';
+import {showToast} from '../utils';
 
 interface Props {
   navigation: NativeStackNavigationProp<RootNavigatorParams, 'ProductScreen'>;
@@ -12,6 +13,7 @@ interface Props {
 
 export default function CartScreen({navigation}: Props) {
   const orders = useAppSelector(state => state.cartState.orders);
+  const user = useAppSelector(state => state.authState.user);
 
   useLayoutEffect(() => {
     // Set header
@@ -21,6 +23,14 @@ export default function CartScreen({navigation}: Props) {
       headerTitleAlign: 'center',
     });
   }, [navigation]);
+
+  function onCheckoutCart() {
+    if (user) {
+    } else {
+      showToast('You need login to continue checkout');
+      navigation.navigate('AuthScreen');
+    }
+  }
 
   return (
     <View style={MyStylers.rootContainer}>
@@ -34,8 +44,14 @@ export default function CartScreen({navigation}: Props) {
           </Text>
         </View>
       )}
-      {orders.length > 0 && <OrderList style={styles.orders} orders={orders} />}
+      {orders.length > 0 && (
+        <View style={styles.content}>
+          <OrderList orders={orders} />
+          <View style={styles.line} />
+        </View>
+      )}
       <SumSession />
+      <CheckoutBar onPress={onCheckoutCart} />
     </View>
   );
 }
@@ -47,9 +63,17 @@ const styles = StyleSheet.create({
   title: {
     textShadowColor: MyColors.background,
   },
-  orders: {
+  content: {
     flex: 1,
     marginTop: MyDimesions.kPaddingLarge,
+    paddingHorizontal: MyDimesions.kPaddingSmall,
+  },
+  line: {
+    width: '100%',
+    height: 1,
+    backgroundColor: MyColors.placeholder,
+    opacity: 0.3,
+    marginTop: MyDimesions.kPaddingMedium,
   },
   emptyContainer: {
     flex: 1,

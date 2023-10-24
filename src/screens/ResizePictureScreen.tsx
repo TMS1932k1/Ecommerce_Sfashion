@@ -1,8 +1,9 @@
-import {Image, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MyApp, MyDimesions, MyStylers} from '../constants';
 import {RootNavigatorParams} from '../navigator';
 import {RouteProp} from '@react-navigation/native';
 import {CircleIconButton} from '../components';
+import FastImage from 'react-native-fast-image';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface Props {
@@ -17,7 +18,7 @@ export default function ResizePictureScreen({route, navigation}: Props) {
 
   return (
     <View style={MyStylers.rootContainer}>
-      <Image
+      <FastImage
         style={styles.image}
         resizeMode="cover"
         source={{

@@ -1,14 +1,13 @@
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  Text,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {Order} from '../../types';
 import {MyApp, MyColors, MyDimesions, MyFonts} from '../../constants';
 import AmountBar from './AmountBar';
+import FastImage from 'react-native-fast-image';
+import {useAppDispatch} from '../../stores/store';
+import {
+  descreaseAmountOrder,
+  increaseAmountOrder,
+} from '../../stores/cart/cartSlice';
 
 interface Props {
   order: Order;
@@ -16,14 +15,23 @@ interface Props {
 }
 
 export default function OrderItem({order, style}: Props) {
+  const dispatch = useAppDispatch();
+
+  function increaseAmount() {
+    dispatch(increaseAmountOrder(order));
+  }
+
+  function descreaseAmount() {
+    dispatch(descreaseAmountOrder(order));
+  }
+
   return (
     <View style={[styles.container, style]}>
-      <Image
+      <FastImage
+        style={styles.image}
         source={{
           uri: `${MyApp.baseUrl}${MyApp.imageProductsApi}${order.product.imageCover}`,
         }}
-        width={100}
-        height={134}
         resizeMode="cover"
       />
       <View style={styles.infoContainer}>
@@ -32,11 +40,17 @@ export default function OrderItem({order, style}: Props) {
             {order.product.name}
           </Text>
           <Text style={[MyFonts.bodyStyle, styles.subText]}>
-            <Text style={styles.price}>{order.product.price} VND</Text>{' '}
+            <Text style={styles.price}>
+              {order.product.price.toLocaleString()} VND
+            </Text>{' '}
             {` Size: ${order.size}`}
           </Text>
         </View>
-        <AmountBar amount={order.amount} />
+        <AmountBar
+          amount={order.amount}
+          onIncrease={increaseAmount}
+          onDecrease={descreaseAmount}
+        />
       </View>
     </View>
   );
@@ -52,6 +66,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: MyDimesions.kPaddingSmall,
     justifyContent: 'space-between',
+  },
+  image: {
+    width: 100,
+    height: 134,
   },
   name: {
     fontSize: 16,

@@ -1,5 +1,6 @@
-import {Dimensions, Image, Pressable, StyleSheet, View} from 'react-native';
-import {MyApp, MyColors, MyDimesions, MyStylers} from '../../../constants';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import {MyApp, MyDimesions, MyStylers} from '../../../constants';
+import FastImage from 'react-native-fast-image';
 import CircleIconButton from '../../common/CircleIconButton';
 
 interface Props {
@@ -13,7 +14,7 @@ export default function CarouselItem({image, onPressResize}: Props) {
   return (
     <View style={styles.imageContainer}>
       <View style={styles.image}>
-        <Image
+        <FastImage
           style={styles.image}
           resizeMode="cover"
           source={{
