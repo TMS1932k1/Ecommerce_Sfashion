@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 
-export type AuthResponse = {
+export type DataResponse = {
   response?: AxiosResponse;
   error?: string;
 };

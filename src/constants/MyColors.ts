@@ -9,4 +9,5 @@ export const MyColors = {
   background: '#F9F9F9',
   done: 'green',
   error: 'red',
+  white: 'white',
 };

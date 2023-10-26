@@ -1,12 +1,12 @@
 import axios, {AxiosError} from 'axios';
 import {MyApp} from '../constants';
-import {AuthResponse} from '../types';
+import {DataResponse} from '../types';
 
 // Login with [email: string, password: string]
 export const postLoginAuth = async (data: {
   email: string;
   password: string;
-}): Promise<AuthResponse> => {
+}): Promise<DataResponse> => {
   try {
     const response = await axios({
       method: 'post',
@@ -28,7 +28,7 @@ export const postSignUpAuth = async (data: {
   email: string;
   password: string;
   passwordConfirm: string;
-}): Promise<AuthResponse> => {
+}): Promise<DataResponse> => {
   try {
     const response = await axios({
       method: 'post',
