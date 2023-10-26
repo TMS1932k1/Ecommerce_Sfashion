@@ -1,13 +1,13 @@
 import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
-import {Order} from '../../types';
-import {MyApp, MyColors, MyDimesions, MyFonts} from '../../constants';
-import AmountBar from './AmountBar';
+import {Order} from '../../../types';
+import {MyApp, MyColors, MyDimesions, MyFonts} from '../../../constants';
+import AmountBar from '../AmountBar';
 import FastImage from 'react-native-fast-image';
-import {useAppDispatch} from '../../stores/store';
+import {useAppDispatch} from '../../../stores/store';
 import {
   descreaseAmountOrder,
   increaseAmountOrder,
-} from '../../stores/cart/cartSlice';
+} from '../../../stores/cart/cartSlice';
 
 interface Props {
   order: Order;

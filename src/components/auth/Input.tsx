@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
   borderContainer: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: MyColors.line,
+    borderBottomColor: MyColors.placeholder,
     alignItems: 'center',
     justifyContent: 'center',
   },

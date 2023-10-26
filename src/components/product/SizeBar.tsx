@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
     fontSize: MyDimesions.kBodySmall,
   },
   currentText: {
-    color: MyColors.white,
+    color: MyColors.background,
   },
 });

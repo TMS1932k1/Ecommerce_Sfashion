@@ -1,9 +1,15 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RootNavigatorParams} from '../navigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useLayoutEffect} from 'react';
 import {MyColors, MyDimesions, MyFonts, MyStylers} from '../constants';
-import {CheckoutBar, OrderList, SumSession, TextSession} from '../components';
+import {
+  AddressSession,
+  CheckoutBar,
+  OrderList,
+  SumSession,
+  TextSession,
+} from '../components';
 import {useAppSelector} from '../stores/store';
 import {showToast} from '../utils';
 
@@ -25,11 +31,22 @@ export default function CartScreen({navigation}: Props) {
   }, [navigation]);
 
   function onCheckoutCart() {
+    // To code handle checkout
+  }
+
+  // Check is logined to hanlde add or change address
+  function addAddress() {
     if (user) {
+      // To code handle
+      Alert.alert('ADD SHIPPING ADDRESS', 'Input');
     } else {
-      showToast('You need login to continue checkout');
-      navigation.navigate('AuthScreen');
+      navigateAuthScreen();
     }
+  }
+
+  function navigateAuthScreen() {
+    showToast('You need login to continue checkout');
+    navigation.navigate('AuthScreen');
   }
 
   return (
@@ -45,13 +62,20 @@ export default function CartScreen({navigation}: Props) {
         </View>
       )}
       {orders.length > 0 && (
-        <View style={styles.content}>
-          <OrderList orders={orders} />
-          <View style={styles.line} />
-        </View>
+        <ScrollView>
+          <View style={styles.content}>
+            <OrderList orders={orders} />
+            <View style={styles.line} />
+            <AddressSession onAddAddress={addAddress} />
+          </View>
+        </ScrollView>
       )}
       <SumSession />
-      <CheckoutBar onPress={onCheckoutCart} />
+      <CheckoutBar
+        onPress={
+          user && user.phone && user.address ? onCheckoutCart : undefined
+        }
+      />
     </View>
   );
 }
@@ -64,7 +88,6 @@ const styles = StyleSheet.create({
     textShadowColor: MyColors.background,
   },
   content: {
-    flex: 1,
     marginTop: MyDimesions.kPaddingLarge,
     paddingHorizontal: MyDimesions.kPaddingSmall,
   },
@@ -72,7 +95,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: MyColors.placeholder,
-    opacity: 0.3,
     marginTop: MyDimesions.kPaddingMedium,
   },
   emptyContainer: {

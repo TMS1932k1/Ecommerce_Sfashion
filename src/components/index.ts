@@ -37,11 +37,13 @@ import ReviewItem from './product/review/ReviewItem';
 import PlaceholderReview from './product/review/PlaceholderReview';
 import ReviewInput from './product/review/ReviewInput';
 import SumSession from './cart/SumSession';
-import OrderList from './cart/OrderList';
-import OrderItem from './cart/OrderItem';
+import OrderList from './cart/orders/OrderList';
+import OrderItem from './cart/orders/OrderItem';
 import AmountBar from './cart/AmountBar';
 import CheckoutBar from './cart/CheckoutBar';
-import AddressSession from './cart/AddressSession';
+import AddressSession from './cart/address/AddressSession';
+import NewAddressButton from './cart/address/NewAddressButton';
+import Address from './cart/address/Address';
 
 export {
   Header,
@@ -88,4 +90,6 @@ export {
   AmountBar,
   CheckoutBar,
   AddressSession,
+  NewAddressButton,
+  Address,
 };

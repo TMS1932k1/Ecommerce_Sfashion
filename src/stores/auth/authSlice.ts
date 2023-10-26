@@ -1,6 +1,11 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {postLoginAuth, postSignUpAuth} from '../../reponsitories';
-import {User} from '../../types';
+import {
+  postLoginAuth,
+  postSignUpAuth,
+  readUser,
+  saveUser,
+} from '../../reponsitories';
+import {DataResponse, User} from '../../types';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 
 export interface AuthState {
@@ -17,6 +22,7 @@ export const loginAuth = createAsyncThunk(
   'auth',
   async (data: {email: string; password: string}) => {
     const response = await postLoginAuth(data);
+    await saveUserWithResponse(response);
     return response;
   },
 );
@@ -30,9 +36,20 @@ export const signUpAuth = createAsyncThunk(
     passwordConfirm: string;
   }) => {
     const response = await postSignUpAuth(data);
+    await saveUserWithResponse(response);
     return response;
   },
 );
+
+export const getSavedUser = createAsyncThunk('save/auth', async () => {
+  return await readUser();
+});
+
+async function saveUserWithResponse(response: DataResponse): Promise<void> {
+  if (!response.error && response.response?.data.user) {
+    await saveUser(response.response?.data.user);
+  }
+}
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -49,8 +66,13 @@ export const authSlice = createSlice({
 
         // If successfull will set user value and set error is undefined
         if (action.payload.response) {
-          state.user = action.payload.response.data;
+          state.user = action.payload.response.data.user;
           state.error = undefined;
+        }
+      })
+      .addCase(getSavedUser.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.user = action.payload;
         }
       })
       .addMatcher<PendingAction>(

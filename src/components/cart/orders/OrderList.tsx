@@ -1,6 +1,6 @@
 import {FlatList, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {Order} from '../../types';
-import {MyDimesions} from '../../constants';
+import {Order} from '../../../types';
+import {MyDimesions} from '../../../constants';
 import OrderItem from './OrderItem';
 
 interface Props {
@@ -11,11 +11,13 @@ interface Props {
 export default function OrderList({orders, style}: Props) {
   return (
     <View style={style}>
-      <FlatList
-        data={orders}
-        keyExtractor={item => `${item.product.id}${item.size}`}
-        renderItem={({item}) => <OrderItem style={styles.item} order={item} />}
-      />
+      {orders.map(item => (
+        <OrderItem
+          key={`${item.product.id}${item.size}`}
+          style={styles.item}
+          order={item}
+        />
+      ))}
     </View>
   );
 }

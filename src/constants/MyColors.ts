@@ -5,9 +5,8 @@ export const MyColors = {
   body: '#333333',
   label: '#555555',
   placeholder: '#888888',
-  line: '#E0CFBA',
-  background: '#F9F9F9',
+  background: 'white',
   done: 'green',
   error: 'red',
-  white: 'white',
+  inputBg: '#F9F9F9',
 };

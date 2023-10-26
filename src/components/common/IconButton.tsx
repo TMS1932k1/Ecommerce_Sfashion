@@ -17,7 +17,7 @@ export default function IconButton({style, onPress, name}: Props) {
         (pressed || !onPress) && MyStylers.press,
       ]}
       onPress={onPress}>
-      <Icon name={name} color={MyColors.white} size={24} />
+      <Icon name={name} color={MyColors.background} size={24} />
     </Pressable>
   );
 }

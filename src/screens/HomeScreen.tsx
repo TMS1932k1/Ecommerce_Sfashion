@@ -1,5 +1,5 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useLayoutEffect} from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 import {ScrollView, StyleSheet, View, Text, Pressable} from 'react-native';
 import {RootNavigatorParams} from '../navigator';
 import {MyColors, MyDimesions, MyFonts, MyStylers} from '../constants';
@@ -12,14 +12,22 @@ import {
   ImageButton,
 } from '../components';
 import {Product} from '../types';
-import {useAppSelector} from '../stores/store';
+import {useAppDispatch, useAppSelector} from '../stores/store';
+import {readCartStorage} from '../stores/cart/cartSlice';
+import {getSavedUser} from '../stores/auth/authSlice';
 
 interface Props {
   navigation: NativeStackNavigationProp<RootNavigatorParams, 'HomeScreen'>;
 }
 
 export default function HomeScreen({navigation}: Props) {
+  const dispatch = useAppDispatch();
   const cartOrders = useAppSelector(state => state.cartState.orders);
+
+  useEffect(() => {
+    dispatch(readCartStorage());
+    dispatch(getSavedUser());
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({

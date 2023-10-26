@@ -1,6 +1,7 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {Order} from '../../types';
 import {showToast} from '../../utils';
+import {readCart, saveCart} from '../../reponsitories';
 
 export interface CartState {
   orders: Order[];
@@ -29,6 +30,10 @@ function getOrder(orders: Order[], orderFind: Order): Order | undefined {
   );
 }
 
+export const readCartStorage = createAsyncThunk('cart/read', async () => {
+  return await readCart();
+});
+
 export const cartState = createSlice({
   name: 'cart',
   initialState: initialState,
@@ -50,6 +55,7 @@ export const cartState = createSlice({
       }
 
       state.sum = sumOrder(state.orders);
+      saveCart(state.orders);
     },
     increaseAmountOrder: (state, action: PayloadAction<Order>) => {
       const findOrder = getOrder(state.orders, action.payload);
@@ -60,6 +66,7 @@ export const cartState = createSlice({
         const index = state.orders.indexOf(findOrder!);
         state.orders[index].amount += 1; // Inscrease amount
         state.sum = sumOrder(state.orders);
+        saveCart(state.orders);
       }
     },
     descreaseAmountOrder: (state, action: PayloadAction<Order>) => {
@@ -73,7 +80,14 @@ export const cartState = createSlice({
         state.orders[index].amount -= 1; // Descrease amount
       }
       state.sum = sumOrder(state.orders);
+      saveCart(state.orders);
     },
+  },
+  extraReducers(build) {
+    build.addCase(readCartStorage.fulfilled, (state, action) => {
+      state.orders = action.payload;
+      state.sum = sumOrder(state.orders);
+    });
   },
 });
 

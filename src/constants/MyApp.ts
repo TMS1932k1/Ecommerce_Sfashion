@@ -4,6 +4,7 @@ export const MyApp = {
   baseUrl: 'http://10.0.2.2:5000',
   loginApi: '/api/user/login',
   signUpApi: '/api/user/signup',
+  meApi: '/api/user/me',
   productsApi: '/api/products',
   imageProductsApi: '/img/products/',
   imageCategorisApi: '/img/categories/',

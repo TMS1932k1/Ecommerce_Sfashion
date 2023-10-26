@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   line: {
     flex: 1,
-    borderColor: MyColors.line,
+    borderColor: MyColors.placeholder,
     borderBottomWidth: 1,
   },
   text: {

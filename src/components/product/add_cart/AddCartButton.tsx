@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
     marginRight: MyDimesions.kPaddingSmall,
   },
   text: {
-    color: MyColors.white,
+    color: MyColors.background,
   },
 });
