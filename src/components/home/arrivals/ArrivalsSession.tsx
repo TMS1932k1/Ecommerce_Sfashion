@@ -20,7 +20,7 @@ export default function ArrivalsSession({onClickProduct}: Props) {
 
   // Fetch get arrivals when first
   useEffect(() => {
-    dispatch(fetchGetArrival(MyApp.arrivals.path));
+    dispatch(fetchGetArrival());
   }, []);
 
   // Set click more
@@ -33,11 +33,13 @@ export default function ArrivalsSession({onClickProduct}: Props) {
       </TextSession>
       {isLoading && <PlaceholderLoading style={styles.products} />}
       {!isLoading && arrivals!.length > 0 && (
-        <ProductList
-          style={styles.products}
-          products={arrivals!}
-          onClickProduct={onClickProduct}
-        />
+        <View>
+          <ProductList
+            style={styles.products}
+            products={arrivals!}
+            onClickProduct={onClickProduct}
+          />
+        </View>
       )}
       {!isLoading && arrivals!.length > 0 && (
         <MoreButton style={styles.more} onPress={onClickMore} />

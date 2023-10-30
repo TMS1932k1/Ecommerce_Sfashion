@@ -1,6 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {
+  AddAddressScreen,
   AuthScreen,
   CartScreen,
   HomeScreen,
@@ -23,6 +24,7 @@ export default function RootNavigator() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="CartScreen" component={CartScreen} />
         <Stack.Screen name="ProductScreen" component={ProductScreen} />
+        <Stack.Screen name="AddAddressScreen" component={AddAddressScreen} />
         <Stack.Screen
           name="ResizePictureScreen"
           component={ResizePictureScreen}
@@ -46,6 +48,7 @@ export type RootNavigatorParams = {
   HomeDrawer: undefined;
   HomeScreen: undefined;
   AuthScreen: undefined;
+  AddAddressScreen: undefined;
   ProductScreen: {
     id: string;
   };

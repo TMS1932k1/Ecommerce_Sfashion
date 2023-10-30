@@ -1,12 +1,9 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  postLoginAuth,
-  postSignUpAuth,
-  readUser,
-  saveUser,
-} from '../../reponsitories';
-import {DataResponse, User} from '../../types';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
+import {authService} from '../../services';
+import {User} from '../../types';
+import {readUser} from '../../utils';
+import {postLoginAuth} from '../../reponsitories/AuthQuery';
 
 export interface AuthState {
   isLoading: boolean;
@@ -21,9 +18,9 @@ const initialState: AuthState = {
 export const loginAuth = createAsyncThunk(
   'auth',
   async (data: {email: string; password: string}) => {
-    const response = await postLoginAuth(data);
-    await saveUserWithResponse(response);
-    return response;
+    console.log(await postLoginAuth(data));
+
+    return authService.login(data);
   },
 );
 
@@ -34,22 +31,12 @@ export const signUpAuth = createAsyncThunk(
     email: string;
     password: string;
     passwordConfirm: string;
-  }) => {
-    const response = await postSignUpAuth(data);
-    await saveUserWithResponse(response);
-    return response;
-  },
+  }) => authService.signup(data),
 );
 
-export const getSavedUser = createAsyncThunk('save/auth', async () => {
-  return await readUser();
-});
-
-async function saveUserWithResponse(response: DataResponse): Promise<void> {
-  if (!response.error && response.response?.data.user) {
-    await saveUser(response.response?.data.user);
-  }
-}
+export const getSavedUser = createAsyncThunk('save/auth', async () =>
+  readUser(),
+);
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -58,21 +45,14 @@ export const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(loginAuth.fulfilled || signUpAuth.fulfilled, (state, action) => {
-        // If have errors will set error value and set user is undefined
-        if (action.payload.error) {
-          state.user = undefined;
-          state.error = action.payload.error;
-        }
-
-        // If successfull will set user value and set error is undefined
-        if (action.payload.response) {
-          state.user = action.payload.response.data.user;
-          state.error = undefined;
-        }
+        console.log(action.payload.data.data.data);
+        state.user = action.payload.data.data.data;
+        state.error = undefined;
       })
       .addCase(getSavedUser.fulfilled, (state, action) => {
         if (action.payload) {
           state.user = action.payload;
+          state.error = undefined;
         }
       })
       .addMatcher<PendingAction>(
@@ -84,6 +64,8 @@ export const authSlice = createSlice({
       .addMatcher<RejectedAction>(
         action => action.type.endsWith('/rejected'),
         (state, action) => {
+          state.user = undefined;
+          state.error = 'Error in fetching auth';
           state.isLoading = false;
         },
       )

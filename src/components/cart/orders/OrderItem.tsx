@@ -8,13 +8,14 @@ import {
   descreaseAmountOrder,
   increaseAmountOrder,
 } from '../../../stores/cart/cartSlice';
+import {memo} from 'react';
 
 interface Props {
   order: Order;
   style?: StyleProp<ViewStyle>;
 }
 
-export default function OrderItem({order, style}: Props) {
+const OrderItem = memo(function OrderItem({order, style}: Props) {
   const dispatch = useAppDispatch();
 
   function increaseAmount() {
@@ -54,7 +55,9 @@ export default function OrderItem({order, style}: Props) {
       </View>
     </View>
   );
-}
+});
+
+export default OrderItem;
 
 const styles = StyleSheet.create({
   container: {

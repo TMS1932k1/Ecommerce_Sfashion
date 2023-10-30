@@ -1,4 +1,10 @@
 export type Collection = {
   label: string;
-  path: string;
+  type: TypeCollection;
 };
+
+export enum TypeCollection {
+  TOP_HOT,
+  TREND,
+  SALE,
+}

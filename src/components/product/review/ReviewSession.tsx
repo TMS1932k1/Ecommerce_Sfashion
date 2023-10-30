@@ -30,7 +30,7 @@ export default function ReviewSession({style, id}: Props) {
       {user && <ReviewInput />}
       {isLoading && <PlaceholderReview />}
       <View style={styles.reviewsContainer}>
-        {reviews.length <= 0 && !isLoading && (
+        {reviews && reviews.length <= 0 && !isLoading && (
           <Text style={[MyFonts.bodyStyle, styles.content]}>
             Not have review
           </Text>
@@ -38,7 +38,8 @@ export default function ReviewSession({style, id}: Props) {
         {errorMes && !isLoading && (
           <Text style={[MyFonts.bodyStyle, styles.content]}>{errorMes}</Text>
         )}
-        {reviews.length > 0 &&
+        {reviews &&
+          reviews.length > 0 &&
           !isLoading &&
           reviews.map(item => <ReviewItem key={item.id} review={item} />)}
       </View>

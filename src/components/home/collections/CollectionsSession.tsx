@@ -26,7 +26,7 @@ export default function CollectionsSession({onClickProduct}: Props) {
 
   // Fetch get collections when on press collections bar
   useEffect(() => {
-    dispatch(fetchGetCollection(MyApp.collections[currentIndex].path));
+    dispatch(fetchGetCollection(MyApp.collections[currentIndex].type));
   }, [currentIndex]);
 
   // Set [currentIndex] with [value: number]

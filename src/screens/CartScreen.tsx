@@ -1,4 +1,4 @@
-import {Alert, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RootNavigatorParams} from '../navigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useLayoutEffect} from 'react';
@@ -38,7 +38,7 @@ export default function CartScreen({navigation}: Props) {
   function addAddress() {
     if (user) {
       // To code handle
-      Alert.alert('ADD SHIPPING ADDRESS', 'Input');
+      navigation.navigate('AddAddressScreen');
     } else {
       navigateAuthScreen();
     }

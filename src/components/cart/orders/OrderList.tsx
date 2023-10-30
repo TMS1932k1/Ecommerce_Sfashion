@@ -1,4 +1,4 @@
-import {FlatList, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {Order} from '../../../types';
 import {MyDimesions} from '../../../constants';
 import OrderItem from './OrderItem';

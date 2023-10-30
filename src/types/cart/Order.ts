@@ -1,4 +1,4 @@
-import {Product} from '../home/Product';
+import {Product} from '../product/Product';
 
 export type Order = {
   product: Product;

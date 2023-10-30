@@ -1,7 +1,6 @@
 import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {Order} from '../../types';
-import {showToast} from '../../utils';
-import {readCart, saveCart} from '../../reponsitories';
+import {readCart, saveCart, showToast} from '../../utils';
 
 export interface CartState {
   orders: Order[];
@@ -30,9 +29,9 @@ function getOrder(orders: Order[], orderFind: Order): Order | undefined {
   );
 }
 
-export const readCartStorage = createAsyncThunk('cart/read', async () => {
-  return await readCart();
-});
+export const readCartStorage = createAsyncThunk('cart/read', async () =>
+  readCart(),
+);
 
 export const cartState = createSlice({
   name: 'cart',

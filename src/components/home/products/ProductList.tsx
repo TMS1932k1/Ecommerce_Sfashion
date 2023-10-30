@@ -31,6 +31,7 @@ export default function ProductList({products, style, onClickProduct}: Props) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    marginHorizontal: MyDimesions.kPaddingSmall,
   },
   item: {
     marginRight: MyDimesions.kPaddingSmall,
