@@ -2,7 +2,7 @@ import axios, {AxiosError} from 'axios';
 import {MyApp} from '../constants';
 import {DataResponse} from '../types';
 
-// Login with [email: string, password: string]
+// Login with [email: string, password: string] hahaha
 export const postLoginAuth = async (data: {
   email: string;
   password: string;
