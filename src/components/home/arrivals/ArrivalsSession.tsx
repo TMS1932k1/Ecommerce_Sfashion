@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {Product} from '../../../types';
 import {useAppDispatch, useAppSelector} from '../../../stores/store';
-import TextSession from '../TextSession';
+import TextSession from '../../common/TextSession';
 import {MyApp, MyDimesions} from '../../../constants';
 import PlaceholderLoading from '../../common/PlaceholderLoading';
 import ProductList from '../products/ProductList';
@@ -20,7 +20,7 @@ export default function ArrivalsSession({onClickProduct}: Props) {
 
   // Fetch get arrivals when first
   useEffect(() => {
-    dispatch(fetchGetArrival(MyApp.arrivals.path));
+    dispatch(fetchGetArrival());
   }, []);
 
   // Set click more
@@ -33,11 +33,13 @@ export default function ArrivalsSession({onClickProduct}: Props) {
       </TextSession>
       {isLoading && <PlaceholderLoading style={styles.products} />}
       {!isLoading && arrivals!.length > 0 && (
-        <ProductList
-          style={styles.products}
-          products={arrivals!}
-          onClickProduct={onClickProduct}
-        />
+        <View>
+          <ProductList
+            style={styles.products}
+            products={arrivals!}
+            onClickProduct={onClickProduct}
+          />
+        </View>
       )}
       {!isLoading && arrivals!.length > 0 && (
         <MoreButton style={styles.more} onPress={onClickMore} />

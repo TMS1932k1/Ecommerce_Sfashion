@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {Product} from './../../types';
-import {getProducts} from '../../reponsitories';
+import {Product, TypeCollection} from './../../types';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
+import {productsService} from '../../services';
 
 export interface CollectionsState {
   isLoading: boolean;
@@ -16,9 +16,14 @@ const initialState: CollectionsState = {
 
 export const fetchGetCollection = createAsyncThunk(
   'home/collections',
-  async (path: string) => {
-    const response = await getProducts(path);
-    return response;
+  async (typeCollection: TypeCollection) => {
+    if (typeCollection === TypeCollection.TREND) {
+      return productsService.getTrend();
+    } else if (typeCollection === TypeCollection.SALE) {
+      return productsService.getSale();
+    } else {
+      return productsService.getHot();
+    }
   },
 );
 
@@ -29,17 +34,8 @@ export const collectionsState = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchGetCollection.fulfilled, (state, action) => {
-        // If have errors will set error value and set collection is undefined
-        if (action.payload.error) {
-          state.collections = undefined;
-          state.error = action.payload.error;
-        }
-
-        // If successfull will set collection value and set error is undefined
-        if (action.payload.response) {
-          state.collections = action.payload.response.data['data'].splice(0, 6);
-          state.error = undefined;
-        }
+        state.collections = action.payload.data.data.data.splice(0, 6);
+        state.error = undefined;
       })
       .addMatcher<PendingAction>(
         action => action.type.endsWith('/collections/pending'),
@@ -50,6 +46,8 @@ export const collectionsState = createSlice({
       .addMatcher<RejectedAction>(
         action => action.type.endsWith('/collections/rejected'),
         (state, action) => {
+          state.error = 'Fetch error in loading collections';
+          state.collections = undefined;
           state.isLoading = false;
         },
       )

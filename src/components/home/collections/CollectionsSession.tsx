@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native';
-import TextSession from '../TextSession';
+import TextSession from '../../common/TextSession';
 import CollectionsSelectBar from './CollectionsSelectBar';
 import {useAppDispatch, useAppSelector} from '../../../stores/store';
 import {useEffect, useState} from 'react';
@@ -26,7 +26,7 @@ export default function CollectionsSession({onClickProduct}: Props) {
 
   // Fetch get collections when on press collections bar
   useEffect(() => {
-    dispatch(fetchGetCollection(MyApp.collections[currentIndex].path));
+    dispatch(fetchGetCollection(MyApp.collections[currentIndex].type));
   }, [currentIndex]);
 
   // Set [currentIndex] with [value: number]

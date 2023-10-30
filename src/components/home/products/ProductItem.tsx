@@ -1,11 +1,4 @@
-import {
-  Image,
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-  Text,
-  Pressable,
-} from 'react-native';
+import {StyleProp, StyleSheet, ViewStyle, Text, Pressable} from 'react-native';
 import {Product} from '../../../types';
 import {
   MyApp,
@@ -14,6 +7,7 @@ import {
   MyFonts,
   MyStylers,
 } from '../../../constants';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
@@ -30,7 +24,7 @@ export default function ProductItem({style, product, onClickProduct}: Props) {
         style,
         (pressed || !onClickProduct) && MyStylers.press,
       ]}>
-      <Image
+      <FastImage
         style={styles.image}
         resizeMode="cover"
         source={{
@@ -41,7 +35,7 @@ export default function ProductItem({style, product, onClickProduct}: Props) {
         {product.name}
       </Text>
       <Text style={[MyFonts.bodyStyle, styles.price]} numberOfLines={1}>
-        {product.price} VND
+        {product.price.toLocaleString()} VND
       </Text>
     </Pressable>
   );

@@ -1,17 +1,27 @@
 import {ReactNode} from 'react';
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {MyColors, MyDimesions, MyFonts} from '../../constants';
 import Line from './Line';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
+  styleText?: StyleProp<TextStyle>;
   children: ReactNode;
 }
 
-export default function TextSession({style, children}: Props) {
+export default function TextSession({style, children, styleText}: Props) {
   return (
     <View style={[styles.container, style]}>
-      <Text style={[MyFonts.bodyStyle, styles.text]}>{children}</Text>
+      <Text style={[MyFonts.bodyStyle, styles.text, styleText]}>
+        {children}
+      </Text>
       <Line />
     </View>
   );

@@ -14,11 +14,18 @@ import {ModeAuth, ValueInput} from '../types';
 import {regexEmail, regexPassword, regexUserName, showToast} from '../utils';
 import {useAppDispatch, useAppSelector} from '../stores/store';
 import {loginAuth, signUpAuth} from '../stores/auth/authSlice';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootNavigatorParams} from '../navigator';
 
-export default function AuthScreen() {
+interface Props {
+  navigation: NativeStackNavigationProp<RootNavigatorParams, 'ProductScreen'>;
+}
+
+export default function AuthScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
 
   const isLoading = useAppSelector(state => state.authState.isLoading);
+  const user = useAppSelector(state => state.authState.user);
   const error = useAppSelector(state => state.authState.error);
 
   // Auth mode: Login and SignUp
@@ -65,13 +72,20 @@ export default function AuthScreen() {
     }
   }, [userName, email, password, confirmPassword, mode, agreement]);
 
-  // If have autj's error will show error toast
+  // If have auth's error will show error toast
   useEffect(() => {
     if (error && !isLoading) {
-      console.log(error);
       showToast(error);
     }
   }, [error, isLoading]);
+
+  // If have user will back
+  useEffect(() => {
+    if (user && !isLoading) {
+      navigation.goBack();
+      showToast('Login successfully');
+    }
+  }, [user, isLoading]);
 
   // Set mode with [modeAuth: ModeAuth]
   function changeMode(modeAuth: ModeAuth) {

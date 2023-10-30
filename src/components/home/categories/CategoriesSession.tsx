@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
-import Line from '../Line';
+import Line from '../../common/Line';
 import {MyDimesions} from '../../../constants';
-import TextSession from '../TextSession';
+import TextSession from '../../common/TextSession';
 import CategoriesList from './CategoiesList';
 import {useAppDispatch, useAppSelector} from '../../../stores/store';
 import {useEffect} from 'react';

@@ -1,6 +1,7 @@
-import {Image, Pressable, StyleSheet} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import {MyApp, MyDimesions, MyStylers} from '../../../constants';
 import {Category} from '../../../types';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   category: Category;
@@ -12,7 +13,7 @@ export default function CategoryItem({category, onPress}: Props) {
     <Pressable
       style={({pressed}) => [(pressed || !onPress) && MyStylers.press]}
       onPress={onPress ? () => onPress(category) : undefined}>
-      <Image
+      <FastImage
         style={styles.container}
         source={{
           uri: `${MyApp.baseUrl}${MyApp.imageCategorisApi}${category.imageCover}`,

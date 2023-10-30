@@ -1,7 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {postLoginAuth, postSignUpAuth} from '../../reponsitories';
-import {User} from '../../types';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
+import {authService} from '../../services';
+import {User} from '../../types';
+import {readUser} from '../../utils';
 
 export interface AuthState {
   isLoading: boolean;
@@ -14,24 +15,24 @@ const initialState: AuthState = {
 };
 
 export const loginAuth = createAsyncThunk(
-  'auth/loginAuth',
+  'auth',
   async (data: {email: string; password: string}) => {
-    const response = await postLoginAuth(data);
-    return response;
+    return authService.login(data);
   },
 );
 
 export const signUpAuth = createAsyncThunk(
-  'auth/loginAuth',
+  'auth',
   async (data: {
     name: string;
     email: string;
     password: string;
     passwordConfirm: string;
-  }) => {
-    const response = await postSignUpAuth(data);
-    return response;
-  },
+  }) => authService.signup(data),
+);
+
+export const getSavedUser = createAsyncThunk('save/auth', async () =>
+  readUser(),
 );
 
 export const authSlice = createSlice({
@@ -41,15 +42,13 @@ export const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(loginAuth.fulfilled || signUpAuth.fulfilled, (state, action) => {
-        // If have errors will set error value and set user is undefined
-        if (action.payload.error) {
-          state.user = undefined;
-          state.error = action.payload.error;
-        }
-
-        // If successfull will set user value and set error is undefined
-        if (action.payload.response) {
-          state.user = action.payload.response.data;
+        console.log(action.payload.data.data.data);
+        state.user = action.payload.data.data.data;
+        state.error = undefined;
+      })
+      .addCase(getSavedUser.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.user = action.payload;
           state.error = undefined;
         }
       })
@@ -62,6 +61,8 @@ export const authSlice = createSlice({
       .addMatcher<RejectedAction>(
         action => action.type.endsWith('/rejected'),
         (state, action) => {
+          state.user = undefined;
+          state.error = 'Error in fetching auth';
           state.isLoading = false;
         },
       )

@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {Product} from './../../types';
-import {getProducts} from '../../reponsitories';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
+import {productsService} from '../../services';
 
 export interface ArrivalsState {
   isLoading: boolean;
@@ -14,12 +14,8 @@ const initialState: ArrivalsState = {
   arrivals: [],
 };
 
-export const fetchGetArrival = createAsyncThunk(
-  'home/arrivals',
-  async (path: string) => {
-    const response = await getProducts(path);
-    return response;
-  },
+export const fetchGetArrival = createAsyncThunk('home/arrivals', async () =>
+  productsService.getArrival(),
 );
 
 export const arrivalsState = createSlice({
@@ -29,17 +25,8 @@ export const arrivalsState = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchGetArrival.fulfilled, (state, action) => {
-        // If have errors will set error value and set arrivals is undefined
-        if (action.payload.error) {
-          state.arrivals = undefined;
-          state.error = action.payload.error;
-        }
-
-        // If successfull will set arrivals value and set error is undefined
-        if (action.payload.response) {
-          state.arrivals = action.payload.response.data['data'].splice(0, 6);
-          state.error = undefined;
-        }
+        state.arrivals = action.payload.data.data.data.splice(0, 6);
+        state.error = undefined;
       })
       .addMatcher<PendingAction>(
         action => action.type.endsWith('/arrivals/pending'),
@@ -50,6 +37,8 @@ export const arrivalsState = createSlice({
       .addMatcher<RejectedAction>(
         action => action.type.endsWith('/arrivals/rejected'),
         (state, action) => {
+          state.error = 'Error in fetching arrivals';
+          state.arrivals = undefined;
           state.isLoading = false;
         },
       )

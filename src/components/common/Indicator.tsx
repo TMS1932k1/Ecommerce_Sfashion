@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {MyColors, MyDimesions} from '../../constants';
+import {MyColors} from '../../constants';
 
 interface Props {
   style?: StyleProp<ViewStyle>;

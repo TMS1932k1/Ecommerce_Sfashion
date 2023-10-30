@@ -1,8 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
-
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {AuthScreen} from './src/screens';
 import {MyStylers} from './src/constants';
 import {Provider} from 'react-redux';
 import {store} from './src/stores/store';
