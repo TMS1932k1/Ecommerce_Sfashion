@@ -3,7 +3,6 @@ import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 import {authService} from '../../services';
 import {User} from '../../types';
 import {readUser} from '../../utils';
-import {postLoginAuth} from '../../reponsitories/AuthQuery';
 
 export interface AuthState {
   isLoading: boolean;
@@ -18,8 +17,6 @@ const initialState: AuthState = {
 export const loginAuth = createAsyncThunk(
   'auth',
   async (data: {email: string; password: string}) => {
-    console.log(await postLoginAuth(data));
-
     return authService.login(data);
   },
 );
