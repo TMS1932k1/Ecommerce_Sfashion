@@ -40,7 +40,7 @@ export default function AddAddressScreen({navigation}: Props) {
               onSelected={() => {}}
             />
             <Text style={[MyFonts.bodyStyle, styles.subtitle]}>
-              {'I N P U T  S H I P P I N G   A D D R E S S'}
+              {'A D D   N E W   A D D R E S S'}
             </Text>
           </View>
         )}

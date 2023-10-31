@@ -1,6 +1,6 @@
+import {UserReposne} from './auth/UserResponse';
 import {ModeAuth} from './auth/ModeAuth';
 import {ValueInput} from './auth/ValueInput';
-import {DataResponse} from './DataResponse';
 import {User} from './auth/User';
 import {Collection, TypeCollection} from './home/Collection';
 import {Product} from './product/Product';
@@ -12,7 +12,6 @@ import {Response} from './Repsonse';
 export {ModeAuth, TypeCollection};
 export type {
   ValueInput,
-  DataResponse,
   User,
   Collection,
   Product,
@@ -20,4 +19,5 @@ export type {
   Review,
   Order,
   Response,
+  UserReposne,
 };

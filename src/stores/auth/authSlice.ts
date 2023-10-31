@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {FulfilledAction, PendingAction, RejectedAction} from '../store';
 import {authService} from '../../services';
 import {User} from '../../types';
-import {readUser} from '../../utils';
+import {readUser, saveUser} from '../../utils';
 
 export interface AuthState {
   isLoading: boolean;
@@ -42,9 +42,10 @@ export const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(loginAuth.fulfilled || signUpAuth.fulfilled, (state, action) => {
-        console.log(action.payload.data.data.data);
-        state.user = action.payload.data.data.data;
+        state.user = action.payload.data.data.user;
         state.error = undefined;
+
+        state.user && saveUser(state.user);
       })
       .addCase(getSavedUser.fulfilled, (state, action) => {
         if (action.payload) {
